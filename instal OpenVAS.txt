@@ -1,0 +1,96 @@
+1- update apt for Linux
+
+sudo su
+sudo apt update
+sudo apt upgrade -y
+sudo apt dist-upgrade -y    -- upgrade All packages
+restart Kali Linux
+
+
+2- Upgrade configuration DB
+
+sudo nano /etc/postgresql/15/main/postgresql.config     --17 instead
+Ctr+W  to search for port >> change it ti 5432
+ctr+X  to save     Y    enter
+
+
+sudo nano /etc/postgresql/14/main/postgresql.config     --16 instead
+Ctr+W  to search for port >> change it ti 5433
+ctr+X  to save     Y    enter
+
+
+3- sudo systemctl restart postgresql
+
+4- sudo systemctl status postgresql
+
+5- pg_lsclusters
+
+====
+backup old data
+sudo -u postgres pg_dumpall > /var/backups/postgresql16_backup.sql
+
+backup old configration files
+sudo cp -r /etc/postgresql/16/main /var/backups/postgresql16_config
+sudo cp -r /etc/postgresql/17/main /var/backups/postgresql17_config
+
+make sure that 17 is started 
+sudo systemctl start postgresql@17-main
+
+make sure it is running 
+sudo systemctl status postgresql@17-main
+
+
+First, stop the PostgreSQL 16 cluster to prepare for the upgrade:
+sudo systemctl stop postgresql@16-main
+
+sudo apt install postgresql-contrib
+
+pg_upgrade --version
+
+sudo apt install postgresql-17
+sudo apt install postgresql-17-postgresql-contrib
+
+sudo apt remove --purge postgresql-16
+sudo apt remove --purge postgresql-client-16
+sudo apt remove --purge postgresql-16-contrib
+sudo rm -rf /var/log/postgresql/postgresql-16-main.log
+
+
+
+====================
+
+6- sudo systemctl enable postgresql@16-main
+   sudo systemctl enable postgresql@17-main
+
+sudo pg_dropcluster 17 main --stop
+sudo apt reinstall postgresql-17
+sudo pg_createcluster 17 main --start
+
+
+
+
+
+
+
+
+5- sudo apt install gvm       Y  enter 
+6- sudo gvm-setup
+
+===========
+23Nov2024
+
+The password for the admin user
+[*] User created with password 'c17f1bb7-2e10-4bdc-9f2f-650be6ffce54'.
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,85 @@
+It looks like you are facing an issue where pip3 cannot install the impacket module because of restrictions on the system environment (due to it being externally managed). This is common on systems like Kali Linux that enforce package management controls for stability and security.
+
+To bypass this, we can install impacket in a virtual environment or use pipx to install it.
+
+Solution 1: Install in a Virtual Environment
+
+1. Create a Virtual Environment:
+   
+   Navigate to your home directory (or any other directory where you want to set up the environment), and run:
+
+   bash
+   python3 -m venv impacket_env
+   
+
+2. Activate the Virtual Environment:
+
+   Once the environment is created, activate it:
+
+   bash
+   source impacket_env/bin/activate
+   
+
+3. *Install impacket in the Virtual Environment*:
+
+   Now that you're inside the virtual environment, install impacket using pip:
+
+   bash
+   pip install impacket
+   
+
+4. *Run the ntlmrelayx.py Script*:
+
+   After the installation completes, you can run the ntlmrelayx.py script with the following command:
+
+   bash
+   python3 /usr/share/doc/python3-impacket/examples/ntlmrelayx.py -tf targets.txt -smb2support
+   This should work without issues as the necessary modules will be available within the virtual environment.
+
+---
+
+Solution 2: Install with pipx
+
+pipx is another useful tool for managing Python packages and running Python applications in isolated environments. Here's how to use it:
+
+1. Install pipx:
+
+   You need to install pipx if you don't have it already:
+
+   bash
+   sudo apt-get install pipx
+   
+
+2. *Install impacket via pipx*:
+
+   Once pipx is installed, you can install impacket:
+
+   bash
+   pipx install impacket
+   
+
+3. *Run the ntlmrelayx.py Script*:
+
+   Now, you can try running the ntlmrelayx.py script again using python3 from the pipx environment.
+
+---
+
+Solution 3: Install Using --break-system-packages (Not Recommended)
+
+If you're comfortable with overriding system package management (which may lead to issues if not done carefully), you can force the installation with:
+
+bash
+sudo pip3 install impacket --break-system-packages
+
+
+However, this is generally not recommended because it can interfere with system-managed packages.
+
+---
+
+I suggest going with Solution 1 (using a virtual environment) as it's safer and avoids issues with your system package management.
+
+Let me know how it goes!
+لوضع المسار فى ال path
+sudo mousepad ~/.zshrc
+export PATH=$PATH:/usr/share/doc/python3-impacket/examples
+sudo chmod +x /usr/share/doc/python3-impacket/examples/ntlmrelayx.py 
